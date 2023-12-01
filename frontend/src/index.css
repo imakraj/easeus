@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+@font-face {
+  font-family: Olga;
+  src: url(./assets/fonts/Olga.ttf);
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+*,
+::after,
+::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar {
+  width: 0;  /* Remove scrollbar space */
+  background: transparent; 
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  background-color: #000000;
+  color: #fff;
+  font-family: 'Quicksand', sans-serif;
+  font-size: clamp(16px, 1.2vw, 19px);
+  scroll-behavior: smooth;
+}
+
+.text-line {
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  animation: dash 3s linear forwards, filling 3s ease-in forwards;
+  font-size: 200px;
+}
+
+.text-line text {
+  font-family: Olga;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes filling {
+
+  0%,
+  70% {
+    fill: #fff;
+    fill-opacity: 0;
+  }
+
+  100% {
+    fill: #fff;
+    fill-opacity: 1;
+  }
+}
+
+.text-light {
+  color: #abb1bf;
+}
+
+.bg-light-gray {
+  background-color: #abb1bf;
+}
+
+.bg-light {
+  background-color: #3e4148;
+}
+
+.marquee-text {
+  font-family: 'Hanken Grotesk', sans-serif;
+}
+
+/* section {
+  border: 1px solid red;
+} */
+
+h1, h2, h3, h4, h5, h6{
+  font-family: 'Hanken Grotesk', sans-serif;
+}
+
+.textSet{
+  /* font-family: 'Roboto', sans-serif; */
+  /* font-famil
+  y: 'Hanken Grotesk', sans-serif; */
+}
+
+.workCard > div{
+  max-width: 60%;
+}
+
+.workCard > div:nth-child(4n+2), .workCard > div:nth-child(4n+3){
+  max-width: 40%;
+}
+
+.workCard > div:nth-child(4n+2)>div, .workCard > div:nth-child(4n+3)>div{
+  padding-top: 40%;
+}
+
+@media screen and (max-width: 640px) { 
+  .workCard > div{
+    width: 100% !important;
+  }
+
+  .workCard > div:nth-child(4n+2)>div, .workCard > div:nth-child(4n+3)>div{
+    padding-top: 0%;
+  }
+
+  /* .workCard > div {
+    width: 100%;
+    border: 2px solid white;
+  } */
+}
