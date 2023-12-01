@@ -31,7 +31,7 @@ const Navbar = () => {
         </div>
 
         {/* SideBar */}
-        <div className={`${!toggle ? "hidden" : "flex"} flex-col justify-between p-6 bg-black fixed top-0 right-0 min-w-[240px] h-screen`} >
+        <div className={`${!toggle ? "hidden" : "flex"} flex-col justify-between p-6 bg-gray-950 bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-40 fixed top-0 right-0 min-w-[240px] h-screen`}>
           <nav className='sm:hidden flex flex-col gap-4 mt-2'>
             <Link to="/" className='hover:font-medium hover:text-white pointer-events-auto'>Home</Link>
             <Link to="/work" className='hover:font-medium hover:text-white pointer-events-auto'>Work</Link>

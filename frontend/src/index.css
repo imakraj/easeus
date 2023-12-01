@@ -100,11 +100,11 @@ h1, h2, h3, h4, h5, h6{
 }
 
 .workCard > div{
-  max-width: 60%;
+  width: 60%;
 }
 
 .workCard > div:nth-child(4n+2), .workCard > div:nth-child(4n+3){
-  max-width: 40%;
+  width: 40%;
 }
 
 .workCard > div:nth-child(4n+2)>div, .workCard > div:nth-child(4n+3)>div{
@@ -114,6 +114,7 @@ h1, h2, h3, h4, h5, h6{
 @media screen and (max-width: 640px) { 
   .workCard > div{
     width: 100% !important;
+    padding: 1rem 0;
   }
 
   .workCard > div:nth-child(4n+2)>div, .workCard > div:nth-child(4n+3)>div{
