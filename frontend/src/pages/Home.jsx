@@ -2,6 +2,7 @@ import React from 'react'
 import hero_video from "../assets/hero.mp4"
 import logo from "../assets/logo.png";
 import easeus from "../assets/easeus.png";
+import { useState } from 'react';
 
 const images = [
     { id: 1, src: "./images/1.jpg" },
@@ -20,7 +21,58 @@ const clientele = [
     { id: 6, src: "./clientele/5.png" }
 ]
 
+const services = [
+    {
+        id: "webDesign",
+        info: {
+            keywords: ["Landing", "Brochure Site", "E-commerce", "Portfolio"],
+            desc: "We create world-class websites using modern design practices. Mobile-first websites and web experiences are essential to the success of your web project. While maintaining bespoke originality, our team will focus on responsive design and optimize your website for any device and interface. Your new website will attract desirable target audiences, boost engagement, drive sales, and increase the brand value of your business."
+        }
+    },
+
+    {
+        id: "branding",
+        info: {
+            keywords: ["Corporate", "Beauty", "Re-Branding"],
+            desc: "Our branding team will excel at presenting your business in its best light. Whether you’re looking to attract a new set of eyes, rekindle an old client base, or simply refine your business’s identity - our creatives will formulate the optimal corporate identity, collateral designs, and brand guidelines unique to your company’s needs. Armed with your new bespoke brand - you will now be able to captivate engaged new audiences and capitalize on your company’s full potential."
+
+        }
+    },
+
+    {
+        id: "uiUx",
+        info: {
+            keywords: ["Color", "Branding", "Ui"],
+            desc: "Our innovative UI/UX team will create the optimal user-centered UI design with smart UX for your project. Having both startup and enterprise experience, our designers consider differing functionality and audience demographics when designing a pixel-perfect screen for each unique client challenge. Following an existing brand guideline or a custom component library, our team will deliver a sleek, clean UI for any complex interface use case."
+        }
+    },
+
+    {
+        id: "packagingDesign",
+        info: {
+            keywords: ["Consumer GoodPackaging", "Merchandise Packaging", "Product Packaging"],
+            desc: "Experienced with top-grade packaging design for a wide range of products from consumer goods to startup ideas. Your packaging design will exceed all expectations with fresh yet pragmatic design ideas realistic to produce by the creatives at DD.NYC®. Packaging design is what makes us fall in love with some of our favorite products. Make yours a favorite."
+        }
+    }
+]
+
 const Home = () => {
+    const [info, setInfo] = useState(services[0].info)
+    const [active, setActive] = useState("webDesign")
+
+    const changeInfo = (value) => {
+        // console.log(value)
+
+        for (let i = 0; i < [services.length]; i++) {
+            if (value === services[i].id) {
+                // console.log(i)
+                setInfo(services[i].info)
+            }
+        }
+
+        // console.log(desc)
+    }
+
     return (
         <>
             <section className="relative">
@@ -32,7 +84,7 @@ const Home = () => {
                     <h1 className="text-white uppercase text-[1rem] md:text-[1.5rem] md:tracking-[2rem] tracking-[1rem] font-thin">create better</h1>
                 </div>
                 <video className="h-screen w-screen object-cover opacity-50" autoPlay muted loop>
-                    <source src={hero_video} type="video/mp4" className="" /> 
+                    <source src={hero_video} type="video/mp4" className="" />
                 </video>
                 <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
             </section>
@@ -54,7 +106,7 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className='relative bg-white text-black' >
+            {/* <section className='relative bg-white text-black' >
                 <div className="relative max-w-screen-2xl mx-auto md:pb-40 pb-32 md:pt-60 pt-32 md:px-0 px-4">
                     <div className='absolute md:-top-32 -top-20  md:right-0 right-4 md:w-64 w-40 md:h-64 h-40 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#52555c] to-[#2c2e32] rounded-full flex justify-center items-center text-white shadow-[rgba(0,_0,_0,_0.8)_0px_25px_50px_-12px]'>
                         <a href="#" className='uppercase font-semibold text-xl'>About Us</a>
@@ -71,6 +123,68 @@ const Home = () => {
                     <div className="flex-grow h-px bg-light-gray"></div>
                     <a href="#" className='pointer-events-auto'><p className="capitalize md:text-7xl text-5xl md:my-16 my-10 font-semibold">Social Media Management</p></a>
                     <div className="flex-grow h-px bg-light-gray"></div>
+                </div>
+            </section> */}
+
+            <section className='relative bg-white text-gray-200'>
+                <div className='relative flex flex-col md:flex-row max-w-screen-2xl mx-auto p-60 md:px-2 px-4'>
+                    <div className='absolute md:-top-32 -top-20  md:right-0 right-4 md:w-64 w-40 md:h-64 h-40 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#52555c] to-[#2c2e32] rounded-full flex justify-center items-center text-white shadow-[rgba(0,_0,_0,_0.8)_0px_25px_50px_-12px]'>
+                        <a href="#" className='uppercase font-semibold text-xl'>About Us</a>
+                    </div>
+                    <div className='flex md:flex-col flex-1 md:gap-12 gap-2'>
+                        <div className={`${active == "webDesign" ? "text-black" : ""} flex gap-6 cursor-pointer`} id="webDesign" onClick={(e) => {
+                            setActive(e.currentTarget.id)
+                            changeInfo(e.currentTarget.id)
+                        }
+                        }>
+                            <span className='font-semibold'>01</span>
+                            <div className='px-2 py-2'><h2 className='text-6xl font-bold whitespace-nowrap'>Web Design</h2></div>
+                        </div>
+
+                        <div className={`${active == "branding" ? "text-black" : ""} flex gap-6 cursor-pointer`} id="branding" onClick={(e) => {
+                            setActive(e.currentTarget.id)
+                            changeInfo(e.currentTarget.id)
+                        }
+                        }>
+                            <span className='font-semibold'>02</span>
+                            <div className='px-2 py-2'><h2 className='text-6xl font-bold'>Branding</h2></div>
+                        </div>
+
+                        <div className={`${active == "uiUx" ? "text-black" : ""} flex gap-6 cursor-pointer`} id="uiUx" onClick={(e) => {
+                            setActive(e.currentTarget.id)
+                            changeInfo(e.currentTarget.id)
+                        }
+                        }>
+                            <span className='font-semibold'>03</span>
+                            <div className='px-2 py-2'><h2 className='text-6xl font-bold'>UI/UX Design</h2></div>
+                        </div>
+
+                        <div className={`${active == "packagingDesign" ? "text-black" : ""} flex gap-6 cursor-pointer`} id="packagingDesign" onClick={(e) => {
+                            setActive(e.currentTarget.id)
+                            changeInfo(e.currentTarget.id)
+                        }
+                        }>
+                            <span className='font-semibold'>04</span>
+                            <div className='px-2 py-2'><h2 className='text-6xl font-bold'>Packaging Design</h2></div>
+                        </div>
+                    </div>
+                    <div className='text-black flex flex-col justify-between flex-1'>
+                        <div>
+                            <div className='flex flex-wrap gap-4 md:mb-8 mb-4'>
+                                {
+                                    info.keywords.map((keyword, i) => (
+                                        <div className='px-6 py-2 font-medium whitespace-nowrap hover:bg-rose-600 bg-gray-200 hover:text-white rounded-full' key={i}>{keyword}</div>
+                                    ))
+                                }
+                            </div>
+
+                            <div className='text-justify'>
+                                {info.desc}
+                            </div>
+                        </div>
+
+                        <a href="" className='text-rose-600 font-bold justify-items-end'>Read more...</a>
+                    </div>
                 </div>
             </section>
 
