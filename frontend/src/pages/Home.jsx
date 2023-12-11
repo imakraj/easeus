@@ -2,7 +2,12 @@ import React from 'react'
 import hero_video from "../assets/hero.mp4"
 import logo from "../assets/logo.png";
 import easeus from "../assets/easeus.png";
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import HoverVideoPlayer from 'react-hover-video-player'
+import { gsap } from 'gsap';
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const images = [
     { id: 1, src: "./images/1.jpg" },
@@ -57,6 +62,8 @@ const services = [
 ]
 
 const Home = () => {
+    const scrollTextRef = useRef(null)
+
     const [info, setInfo] = useState(services[0].info)
     const [active, setActive] = useState("webDesign")
 
@@ -72,6 +79,46 @@ const Home = () => {
 
         // console.log(desc)
     }
+
+    useEffect(() => {
+        // const textElement = scrollTextRef.current;
+
+        // gsap.to(textElement, {
+        //     x: -200, // Move 400 pixels horizontally to the right
+        //     ease: 'power1.inOut', // Use ease-in, ease-out
+        //     scrollTrigger: {
+        //         trigger: textElement,
+        //         start: 'top 80%',
+        //         end: 'bottom 0%',
+        //         markers: true,
+        //         scrub: true,
+        //         toggleActions: 'play reverse play reverse'
+        //     },
+        // });
+
+        const textElement = scrollTextRef.current;
+
+        const handleScroll = () => {
+          const scrollY = window.scrollY;
+          gsap.to(textElement, { x: -scrollY, ease: 'none' });
+        };
+
+        //Initial animation
+        gsap.fromTo(
+          textElement,
+          { x: 0 },
+          { x: '10%', duration: 1, ease: 'power2.out' }
+        );
+
+        //Event listener for scroll
+        window.addEventListener('scroll', handleScroll);
+
+        //Cleanup event listener on component unmount
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+        };
+
+    }, [])
 
     return (
         <>
@@ -89,8 +136,8 @@ const Home = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
             </section>
             <section className='relative'>
-                {/* <p className='uppercase marquee-text text-[15rem] font-bold'>easeus media - creative agency</p> */}
-                <marquee className='uppercase marquee-text md:text-[15rem] text-[12rem] font-bold'>easeus media - creative agency</marquee>
+                <p className='uppercase marquee-text text-[15rem] font-bold whitespace-nowrap' ref={scrollTextRef} >easeus media - creative agency</p>
+                {/* <marquee className='uppercase marquee-text md:text-[15rem] text-[12rem] font-bold'>easeus media - creative agency</marquee> */}
             </section>
             <section className="relative max-w-screen-2xl mx-auto py-16 md:px-0 px-4 mb-20 md:py-36" >
                 <div className='flex flex-col md:flex-row justify-around items-center'>
@@ -132,7 +179,7 @@ const Home = () => {
                         <a href="#" className='uppercase font-semibold text-xl'>About Us</a>
                     </div>
                     <div className='flex md:flex-col flex-1 md:gap-12 gap-2'>
-                        <div className={`${active == "webDesign" ? "text-black" : ""} flex gap-6 cursor-pointer`} id="webDesign" onClick={(e) => {
+                        <div className={`${active == "webDesign" ? "text-black" : ""} flex gap-6 cursor-pointer hover:text-black`} id="webDesign" onClick={(e) => {
                             setActive(e.currentTarget.id)
                             changeInfo(e.currentTarget.id)
                         }
@@ -141,7 +188,7 @@ const Home = () => {
                             <div className='px-2 py-2'><h2 className='text-6xl font-bold whitespace-nowrap'>Web Design</h2></div>
                         </div>
 
-                        <div className={`${active == "branding" ? "text-black" : ""} flex gap-6 cursor-pointer`} id="branding" onClick={(e) => {
+                        <div className={`${active == "branding" ? "text-black" : ""} flex gap-6 cursor-pointer hover:text-black`} id="branding" onClick={(e) => {
                             setActive(e.currentTarget.id)
                             changeInfo(e.currentTarget.id)
                         }
@@ -150,7 +197,7 @@ const Home = () => {
                             <div className='px-2 py-2'><h2 className='text-6xl font-bold'>Branding</h2></div>
                         </div>
 
-                        <div className={`${active == "uiUx" ? "text-black" : ""} flex gap-6 cursor-pointer`} id="uiUx" onClick={(e) => {
+                        <div className={`${active == "uiUx" ? "text-black" : ""} flex gap-6 cursor-pointer hover:text-black`} id="uiUx" onClick={(e) => {
                             setActive(e.currentTarget.id)
                             changeInfo(e.currentTarget.id)
                         }
@@ -159,7 +206,7 @@ const Home = () => {
                             <div className='px-2 py-2'><h2 className='text-6xl font-bold'>UI/UX Design</h2></div>
                         </div>
 
-                        <div className={`${active == "packagingDesign" ? "text-black" : ""} flex gap-6 cursor-pointer`} id="packagingDesign" onClick={(e) => {
+                        <div className={`${active == "packagingDesign" ? "text-black" : ""} flex gap-6 cursor-pointer hover:text-black`} id="packagingDesign" onClick={(e) => {
                             setActive(e.currentTarget.id)
                             changeInfo(e.currentTarget.id)
                         }
@@ -194,8 +241,8 @@ const Home = () => {
                 </video>
             </section>
 
-            <section>
-                <div className='max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-center items-center gap-12 my-48 md:px-0 px-4'>
+            <section className='max-w-screen-2xl mx-auto '>
+                <div className='flex flex-col md:flex-row justify-center items-center gap-12 my-48 md:px-0 px-4'>
                     <p className='break-normal flex-1 font-light md:text-left text-center'>We firmly believe that every endeavor we undertake must encompass the essence
                         of creative thinking and artistry.
                     </p>
@@ -207,22 +254,133 @@ const Home = () => {
                     </div>
                 </div>
 
-                <div className='max-w-fit mx-auto overflow-auto whitespace-nowrap h-auto'>
+                {/* <div className='max-w-fit mx-auto overflow-auto whitespace-nowrap h-auto'>
                     {images.map(({ id, src }) => (
                         <div key={id} className='inline-block mr-10 relative'>
                             <img src={src} alt="image" className="object-cover h-96 w-96 filter grayscale hover:grayscale-0" />
                         </div>
                     )
                     )}
-                </div>
+                </div> */}
 
-                <div className='max-w-fit mx-auto overflow-auto whitespace-nowrap'>
+                {/* <div className='max-w-fit mx-auto overflow-auto whitespace-nowrap'>
                     {images.map(({ id, src }) => (
                         <div key={id} className='inline-block mr-10 object-cover h-96 w-96 '>
                             <img src={src} alt="image" className="object-cover h-96 w-96 filter grayscale hover:grayscale-0" />
                         </div>
                     )
                     )}
+                </div> */}
+
+                <div className='grid grid-cols-1 sm:grid-cols-2 grid-rows-2 md:gap-6 gap-4 mb-12 md:mb-24 p-6 sm:p-4 md:p-0'>
+                    <div className='rounded-2xl overflow-hidden md:aspect-video'>
+                        <HoverVideoPlayer
+                            videoSrc={hero_video}
+                            pausedOverlay={
+                                <img
+                                    src={images[0].src}
+                                    alt=''
+                                    // className='h-full w-full object-cover'
+                                    style={{
+                                        height: '100%',
+                                        width: '100%',
+                                        objectFit: 'cover'
+                                    }}
+                                />
+                            }
+
+                            loadingOverlay={
+                                <div className='loading-overlay'>
+                                    <div className='loading-spinner' />
+                                </div>
+                            }
+
+                            restartOnPaused={true}
+                        />
+                    </div>
+                    <div className='rounded-2xl overflow-hidden md:aspect-video'>
+                        <HoverVideoPlayer
+                            videoSrc={hero_video}
+                            pausedOverlay={
+                                <img
+                                    src={images[1].src}
+                                    alt=''
+                                    // className='h-full w-full object-cover'
+                                    style={{
+                                        height: '100%',
+                                        width: '100%',
+                                        objectFit: 'cover'
+                                    }}
+                                />
+                            }
+
+                            loadingOverlay={
+                                <div className='loading-overlay'>
+                                    <div className='loading-spinner' />
+                                </div>
+                            }
+
+                            restartOnPaused={true}
+                        />
+                    </div>
+                    <div className='rounded-2xl overflow-hidden md:aspect-video'>
+                        <HoverVideoPlayer
+                            videoSrc={hero_video}
+                            pausedOverlay={
+                                <img
+                                    src={images[2].src}
+                                    alt=''
+                                    // className='h-full w-full object-cover'
+                                    style={{
+                                        height: '100%',
+                                        width: '100%',
+                                        objectFit: 'cover'
+                                    }}
+                                />
+                            }
+
+                            loadingOverlay={
+                                <div className='loading-overlay'>
+                                    <div className='loading-spinner' />
+                                </div>
+                            }
+
+                            restartOnPaused={true}
+                        />
+                    </div>
+                    <div className='rounded-2xl overflow-hidden md:aspect-video'>
+                        <HoverVideoPlayer
+                            videoSrc={hero_video}
+                            pausedOverlay={
+                                <img
+                                    src={images[3].src}
+                                    alt=''
+                                    // className='h-full w-full object-cover'
+                                    style={{
+                                        height: '100%',
+                                        width: '100%',
+                                        objectFit: 'cover'
+                                    }}
+                                />
+                            }
+
+                            loadingOverlay={
+                                <div className='loading-overlay'>
+                                    <div className='loading-spinner' />
+                                </div>
+                            }
+
+                            restartOnPaused={true}
+                        />
+                    </div>
+                </div>
+
+                <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 md:grid-rows-2 md:gap-6 gap-4 mb-24 p-6 sm:p-4 md:p-0'>
+                    <div className='rounded-2xl overflow-hidden'><img src={images[0].src} className='w-full hover:scale-110 transition ease-in-out duration-700' /></div>
+                    <div className='rounded-2xl overflow-hidden row-span-2'><img src={images[1].src} className='w-full hover:scale-110 transition ease-in-out duration-700 h-full object-cover' /></div>
+                    <div className='rounded-2xl overflow-hidden'><img src={images[2].src} className='w-full hover:scale-110 transition ease-in-out duration-700' /></div>
+                    <div className='rounded-2xl overflow-hidden'><img src={images[3].src} className='w-full hover:scale-110 transition ease-in-out duration-700' /></div>
+                    <div className='rounded-2xl overflow-hidden'><img src={images[4].src} className='w-full hover:scale-110 transition ease-in-out duration-700' /></div>
                 </div>
             </section>
 

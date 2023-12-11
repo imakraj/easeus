@@ -105,10 +105,16 @@ h1, h2, h3, h4, h5, h6{
 
 .workCard > div:nth-child(4n+2), .workCard > div:nth-child(4n+3){
   width: 40%;
+  padding-top: 15.6%;
 }
 
-.workCard > div:nth-child(4n+2)>div, .workCard > div:nth-child(4n+3)>div{
-  padding-top: 40%;
+/* .workCard > div:nth-child(4n+2)>div, .workCard > div:nth-child(4n+3)>div{
+  padding-top: 38.6%;
+} */
+
+.workCard > .view-project{  
+  bottom: 0%;
+  left:0%;
 }
 
 @media screen and (max-width: 640px) { 
